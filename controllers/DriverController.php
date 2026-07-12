@@ -170,6 +170,10 @@ class DriverController extends Controller {
             $this->json(['success' => false, 'error' => 'Safety score must be between 0 and 100.']);
         }
 
+        if ($experience < 0) {
+            $this->json(['success' => false, 'error' => 'Driving experience cannot be negative.']);
+        }
+
         // 2. File Upload Handling
         $photoPath = $driver['photo_path'];
         if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {

@@ -68,7 +68,7 @@ function initNotifications() {
     
     if (!badge || !dropdownList) return;
 
-    fetch(window.location.origin + window.location.pathname.split('/index.php')[0] + '/notifications/latest', {
+    fetch(BASE_URL + '/notifications/latest', {
         headers: {
             'X-Requested-With': 'XMLHttpRequest'
         }

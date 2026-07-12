@@ -53,11 +53,19 @@ if (!defined('SECURE_ACCESS')) exit;
                     <span class="text-light small" style="font-size: 0.75rem;">
                         <i class="far fa-clock me-1"></i><?php echo date('M j, Y H:i', strtotime($n['created_at'])); ?>
                     </span>
-                    <?php if (!$isRead): ?>
-                    <button class="btn btn-link btn-sm text-primary p-0 small" onclick="markRead(<?php echo $n['id']; ?>, this)">
-                        Mark Read
-                    </button>
-                    <?php endif; ?>
+                    <div class="d-flex gap-2">
+                        <?php if (!$isRead): ?>
+                        <button class="btn btn-link btn-sm text-primary p-0 small" onclick="markRead(<?php echo $n['id']; ?>, this)">
+                            Mark Read
+                        </button>
+                        <?php endif; ?>
+                        <button class="btn btn-sm btn-primary rounded-circle" onclick="editNotification(<?php echo $n['id']; ?>)" title="Edit">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger rounded-circle" onclick="deleteNotification(<?php echo $n['id']; ?>)" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,6 +113,88 @@ function markAllRead() {
                 if (data.success) {
                     AjaxOps.toast('All notifications marked as read.');
                     setTimeout(() => window.location.reload(), 1000);
+                }
+            });
+        }
+    });
+}
+
+function editNotification(id) {
+    const card = document.querySelector(`[onclick="editNotification(${id})"]`).closest('.premium-card');
+    const title = card.querySelector('h6').innerText;
+    const message = card.querySelector('p').innerText;
+    const typeSelect = card.querySelector('.border-danger') ? 'danger' : (card.querySelector('.border-warning') ? 'warning' : 'info');
+
+    Swal.fire({
+        title: 'Edit Notification',
+        html: `
+            <input id="notif-title" class="swal2-input" placeholder="Title" value="${title}">
+            <textarea id="notif-message" class="swal2-input" placeholder="Message" rows="3">${message}</textarea>
+            <select id="notif-type" class="swal2-input">
+                <option value="info" ${typeSelect === 'info' ? 'selected' : ''}>Info</option>
+                <option value="warning" ${typeSelect === 'warning' ? 'selected' : ''}>Warning</option>
+                <option value="danger" ${typeSelect === 'danger' ? 'selected' : ''}>Danger</option>
+                <option value="success" ${typeSelect === 'success' ? 'selected' : ''}>Success</option>
+            </select>
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Update',
+        confirmButtonColor: '#4f46e5',
+        preConfirm: () => {
+            return {
+                id: id,
+                title: document.getElementById('notif-title').value,
+                message: document.getElementById('notif-message').value,
+                type: document.getElementById('notif-type').value
+            };
+        }
+    }).then(result => {
+        if (result.isConfirmed) {
+            fetch(BASE_URL + '/notifications/update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                body: JSON.stringify(result.value)
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    AjaxOps.toast('Notification updated successfully.');
+                    setTimeout(() => window.location.reload(), 1000);
+                } else {
+                    Swal.fire('Error', data.error || 'Failed to update notification', 'error');
+                }
+            });
+        }
+    });
+}
+
+function deleteNotification(id) {
+    Swal.fire({
+        title: 'Delete Notification?',
+        text: 'This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, Delete'
+    }).then(result => {
+        if (result.isConfirmed) {
+            fetch(BASE_URL + '/notifications/delete', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                body: JSON.stringify({ id: id })
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    const card = document.querySelector(`[onclick="deleteNotification(${id})"]`).closest('.col-12');
+                    card.style.transition = 'all 0.3s ease';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateX(-100%)';
+                    setTimeout(() => card.remove(), 300);
+                    AjaxOps.toast('Notification deleted successfully.');
+                } else {
+                    Swal.fire('Error', data.error || 'Failed to delete notification', 'error');
                 }
             });
         }

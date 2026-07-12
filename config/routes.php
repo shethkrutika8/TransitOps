@@ -66,6 +66,8 @@ return [
     'GET|/notifications' => 'NotificationController@index',
     'GET|/notifications/latest' => 'NotificationController@latest',
     'POST|/notifications/read' => 'NotificationController@markAsRead',
+    'POST|/notifications/update' => 'NotificationController@update',
+    'POST|/notifications/delete' => 'NotificationController@delete',
 
     // Settings Module
     'GET|/settings' => 'SettingController@index',

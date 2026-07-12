@@ -56,12 +56,58 @@ class NotificationController extends Controller {
             // Mark all read if no specific ID
             $this->notifModel->markAllRead();
             $this->json(['success' => true, 'message' => 'All notifications marked as read.']);
+            return;
         }
 
         if ($this->notifModel->markRead($id)) {
             $this->json(['success' => true, 'message' => 'Notification marked as read.']);
         } else {
             $this->json(['success' => false, 'error' => 'Notification not found.']);
+        }
+    }
+
+    /**
+     * Update notification (AJAX POST)
+     */
+    public function update() {
+        $data = $this->getPostData();
+        $id = $data['id'] ?? null;
+
+        if (!$id) {
+            $this->json(['success' => false, 'error' => 'Notification ID is required.']);
+            return;
+        }
+
+        $updateData = [
+            'title' => $data['title'] ?? '',
+            'message' => $data['message'] ?? '',
+            'type' => $data['type'] ?? 'info',
+            'is_read' => $data['is_read'] ?? 0
+        ];
+
+        if ($this->notifModel->update($id, $updateData)) {
+            $this->json(['success' => true, 'message' => 'Notification updated successfully.']);
+        } else {
+            $this->json(['success' => false, 'error' => 'Failed to update notification.']);
+        }
+    }
+
+    /**
+     * Delete notification (AJAX POST)
+     */
+    public function delete() {
+        $data = $this->getPostData();
+        $id = $data['id'] ?? null;
+
+        if (!$id) {
+            $this->json(['success' => false, 'error' => 'Notification ID is required.']);
+            return;
+        }
+
+        if ($this->notifModel->delete($id)) {
+            $this->json(['success' => true, 'message' => 'Notification deleted successfully.']);
+        } else {
+            $this->json(['success' => false, 'error' => 'Failed to delete notification.']);
         }
     }
 }
