@@ -1,191 +1,218 @@
-// TransitOps Chart.js Setup
+/**
+ * TransitOps Dashboard Charts
+ * Chart.js configuration and initialization for all dashboard charts
+ */
 
-let vehiclesChart, driversChart, fuelMaintenanceChart, fleetUtilizationChart, tripsChart;
+const CHART_COLORS = {
+    primary   : '#4f46e5',
+    success   : '#22c55e',
+    warning   : '#f59e0b',
+    danger    : '#ef4444',
+    info      : '#06b6d4',
+    secondary : '#64748b',
+    purple    : '#a855f7',
+    pink      : '#ec4899',
+};
 
-function getThemeColors() {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+Chart.defaults.font.family = "'Inter', 'Outfit', sans-serif";
+Chart.defaults.font.size = 12;
+
+/**
+ * Utility: shared doughnut chart options
+ */
+function doughnutOpts(label) {
     return {
-        text: isDark ? '#9ca3af' : '#64748b',
-        grid: isDark ? '#1f2937' : '#e2e8f0',
-        tooltipBg: isDark ? '#1e293b' : '#ffffff',
-        tooltipBorder: isDark ? '#334155' : '#e2e8f0',
-        tooltipText: isDark ? '#f3f4f6' : '#1e293b'
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { padding: 12, boxWidth: 14, color: '#94a3b8' } },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ` ${ctx.label}: ${ctx.parsed}`
+                }
+            }
+        },
+        cutout: '62%',
+        animation: { animateScale: true, duration: 800 }
     };
 }
 
+/**
+ * Main initialization function — called from dashboard view with PHP chart data
+ */
 function initDashboardCharts(data) {
-    const colors = getThemeColors();
 
-    Chart.defaults.color = colors.text;
-    Chart.defaults.borderColor = colors.grid;
-    Chart.defaults.font.family = 'Outfit, sans-serif';
-
-    // 1. Vehicle Status Doughnut Chart
-    const vehicleCtx = document.getElementById('vehicleStatusChart');
-    if (vehicleCtx) {
-        vehiclesChart = new Chart(vehicleCtx, {
+    /* 1. Vehicle Status Doughnut */
+    const vehicleStatusCtx = document.getElementById('vehicleStatusChart');
+    if (vehicleStatusCtx) {
+        new Chart(vehicleStatusCtx, {
             type: 'doughnut',
             data: {
                 labels: Object.keys(data.vehicles),
                 datasets: [{
                     data: Object.values(data.vehicles),
-                    backgroundColor: ['#10b981', '#4f46e5', '#f59e0b', '#ef4444'],
-                    borderWidth: 2,
-                    borderColor: 'transparent'
+                    backgroundColor: [
+                        CHART_COLORS.success,
+                        CHART_COLORS.primary,
+                        CHART_COLORS.warning,
+                        CHART_COLORS.secondary
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#1e1e2e',
+                    hoverOffset: 6
                 }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } }
-                },
-                cutout: '70%'
-            }
+            options: doughnutOpts('Vehicles')
         });
     }
 
-    // 2. Driver Status Doughnut Chart
-    const driverCtx = document.getElementById('driverStatusChart');
-    if (driverCtx) {
-        driversChart = new Chart(driverCtx, {
+    /* 2. Driver Status Doughnut */
+    const driverStatusCtx = document.getElementById('driverStatusChart');
+    if (driverStatusCtx) {
+        new Chart(driverStatusCtx, {
             type: 'doughnut',
             data: {
                 labels: Object.keys(data.drivers),
                 datasets: [{
                     data: Object.values(data.drivers),
-                    backgroundColor: ['#10b981', '#4f46e5', '#6b7280', '#ef4444'],
-                    borderWidth: 2,
-                    borderColor: 'transparent'
+                    backgroundColor: [
+                        CHART_COLORS.success,
+                        CHART_COLORS.info,
+                        CHART_COLORS.secondary,
+                        CHART_COLORS.danger
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#1e1e2e',
+                    hoverOffset: 6
                 }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } }
-                },
-                cutout: '70%'
-            }
+            options: doughnutOpts('Drivers')
         });
     }
 
-    // 3. Monthly Fuel vs Maintenance Grouped Bar Chart
-    const fmCtx = document.getElementById('fuelMaintenanceChart');
-    if (fmCtx) {
-        fuelMaintenanceChart = new Chart(fmCtx, {
+    /* 3. Trip Status Doughnut */
+    const tripStatusCtx = document.getElementById('tripStatusChart');
+    if (tripStatusCtx) {
+        new Chart(tripStatusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(data.trips),
+                datasets: [{
+                    data: Object.values(data.trips),
+                    backgroundColor: [
+                        CHART_COLORS.secondary,
+                        CHART_COLORS.primary,
+                        CHART_COLORS.success,
+                        CHART_COLORS.danger
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#1e1e2e',
+                    hoverOffset: 6
+                }]
+            },
+            options: doughnutOpts('Trips')
+        });
+    }
+
+    /* 4. Fuel vs Maintenance Line Chart (6 months) */
+    const fuelMaintCtx = document.getElementById('fuelMaintenanceChart');
+    if (fuelMaintCtx) {
+        new Chart(fuelMaintCtx, {
             type: 'bar',
             data: {
                 labels: data.financials.months,
                 datasets: [
                     {
-                        label: 'Fuel Cost',
+                        label: 'Fuel Cost (₹)',
                         data: data.financials.fuel,
-                        backgroundColor: '#06b6d4',
-                        borderRadius: 6
+                        backgroundColor: 'rgba(239,68,68,0.65)',
+                        borderColor: CHART_COLORS.danger,
+                        borderWidth: 2,
+                        borderRadius: 6,
+                        hoverBackgroundColor: CHART_COLORS.danger
                     },
                     {
-                        label: 'Maintenance Cost',
+                        label: 'Maintenance Cost (₹)',
                         data: data.financials.maintenance,
-                        backgroundColor: '#f59e0b',
-                        borderRadius: 6
+                        backgroundColor: 'rgba(245,158,11,0.65)',
+                        borderColor: CHART_COLORS.warning,
+                        borderWidth: 2,
+                        borderRadius: 6,
+                        hoverBackgroundColor: CHART_COLORS.warning
                     }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: {
-                    x: { grid: { display: false } },
-                    y: { grid: { color: colors.grid } }
-                },
                 plugins: {
-                    legend: { position: 'bottom', labels: { boxWidth: 12 } }
-                }
+                    legend: { labels: { color: '#94a3b8', boxWidth: 14 } },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ` ${ctx.dataset.label}: ₹${ctx.parsed.y.toLocaleString()}`
+                        }
+                    }
+                },
+                scales: {
+                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                    y: {
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: {
+                            color: '#94a3b8',
+                            callback: val => '₹' + (val >= 1000 ? (val/1000).toFixed(0) + 'k' : val)
+                        },
+                        beginAtZero: true
+                    }
+                },
+                animation: { duration: 900 }
             }
         });
     }
 
-    // 4. Fleet Utilization Trend Line Chart
+    /* 5. Fleet Utilization Line Chart (6 months) */
     const utilCtx = document.getElementById('fleetUtilizationChart');
     if (utilCtx) {
-        fleetUtilizationChart = new Chart(utilCtx, {
+        new Chart(utilCtx, {
             type: 'line',
             data: {
                 labels: data.utilization.months,
                 datasets: [{
-                    label: 'Utilization %',
+                    label: 'Fleet Utilization (%)',
                     data: data.utilization.rates,
-                    borderColor: '#4f46e5',
-                    backgroundColor: 'rgba(79, 70, 229, 0.05)',
                     fill: true,
+                    backgroundColor: 'rgba(79,70,229,0.15)',
+                    borderColor: CHART_COLORS.primary,
                     tension: 0.4,
                     borderWidth: 3,
-                    pointBackgroundColor: '#4f46e5',
-                    pointHoverRadius: 6
+                    pointBackgroundColor: CHART_COLORS.primary,
+                    pointRadius: 5,
+                    pointHoverRadius: 8
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: {
-                    x: { grid: { display: false } },
-                    y: { 
-                        min: 0, 
-                        max: 100, 
-                        grid: { color: colors.grid },
-                        ticks: { callback: value => value + '%' }
+                plugins: {
+                    legend: { labels: { color: '#94a3b8', boxWidth: 14 } },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ` Utilization: ${ctx.parsed.y}%`
+                        }
                     }
                 },
-                plugins: {
-                    legend: { display: false }
-                }
-            }
-        });
-    }
-
-    // 5. Trip Status Chart (Doughnut)
-    const tripCtx = document.getElementById('tripStatusChart');
-    if (tripCtx) {
-        tripsChart = new Chart(tripCtx, {
-            type: 'doughnut',
-            data: {
-                labels: Object.keys(data.trips),
-                datasets: [{
-                    data: Object.values(data.trips),
-                    backgroundColor: ['#6b7280', '#4f46e5', '#10b981', '#ef4444'],
-                    borderWidth: 2,
-                    borderColor: 'transparent'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } }
+                scales: {
+                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                    y: {
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#94a3b8', callback: val => val + '%' },
+                        beginAtZero: true,
+                        max: 100
+                    }
                 },
-                cutout: '70%'
+                animation: { duration: 900 }
             }
         });
     }
-
-    // Handle Theme Change Live Updates
-    window.addEventListener('themeChanged', function() {
-        const newColors = getThemeColors();
-        
-        Chart.defaults.color = newColors.text;
-        Chart.defaults.borderColor = newColors.grid;
-
-        [vehiclesChart, driversChart, fuelMaintenanceChart, fleetUtilizationChart, tripsChart].forEach(chart => {
-            if (!chart) return;
-            
-            // Update scales grid colors
-            if (chart.options.scales) {
-                if (chart.options.scales.y) {
-                    chart.options.scales.y.grid.color = newColors.grid;
-                }
-            }
-            chart.update();
-        });
-    });
 }

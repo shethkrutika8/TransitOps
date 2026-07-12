@@ -9,13 +9,13 @@ INSERT INTO `roles` (`id`, `name`, `permissions`) VALUES
 (5, 'Finance Manager', '["dashboard_view", "fuel_manage", "expenses_manage", "reports_manage"]');
 
 -- Seed Users (Password is 'admin123' for all)
--- Hash generated for 'admin123': $2y$10$sP3gV45G04bM2Lq1Q8R3eeL4Q6nF5m6Xv/X7Y5tBv.9kL9mK6rWvB
+-- Hash generated for 'admin123': $2y$10$7Kgg3hd4Jl.IiBZFdb/LNuYC44necSmAGXyC8j4rhIdkxfqXCKGj6
 INSERT INTO `users` (`id`, `email`, `password`, `name`, `role_id`, `status`) VALUES
-(1, 'admin@transitops.com', '$2y$10$sP3gV45G04bM2Lq1Q8R3eeL4Q6nF5m6Xv/X7Y5tBv.9kL9mK6rWvB', 'John Admin', 1, 'Active'),
-(2, 'manager@transitops.com', '$2y$10$sP3gV45G04bM2Lq1Q8R3eeL4Q6nF5m6Xv/X7Y5tBv.9kL9mK6rWvB', 'Alice Manager', 2, 'Active'),
-(3, 'dispatcher@transitops.com', '$2y$10$sP3gV45G04bM2Lq1Q8R3eeL4Q6nF5m6Xv/X7Y5tBv.9kL9mK6rWvB', 'Bob Dispatcher', 3, 'Active'),
-(4, 'safety@transitops.com', '$2y$10$sP3gV45G04bM2Lq1Q8R3eeL4Q6nF5m6Xv/X7Y5tBv.9kL9mK6rWvB', 'Charlie Safety', 4, 'Active'),
-(5, 'finance@transitops.com', '$2y$10$sP3gV45G04bM2Lq1Q8R3eeL4Q6nF5m6Xv/X7Y5tBv.9kL9mK6rWvB', 'David Finance', 5, 'Active');
+(1, 'admin@transitops.com', '$2y$10$7Kgg3hd4Jl.IiBZFdb/LNuYC44necSmAGXyC8j4rhIdkxfqXCKGj6', 'John Admin', 1, 'Active'),
+(2, 'manager@transitops.com', '$2y$10$7Kgg3hd4Jl.IiBZFdb/LNuYC44necSmAGXyC8j4rhIdkxfqXCKGj6', 'Alice Manager', 2, 'Active'),
+(3, 'dispatcher@transitops.com', '$2y$10$7Kgg3hd4Jl.IiBZFdb/LNuYC44necSmAGXyC8j4rhIdkxfqXCKGj6', 'Bob Dispatcher', 3, 'Active'),
+(4, 'safety@transitops.com', '$2y$10$7Kgg3hd4Jl.IiBZFdb/LNuYC44necSmAGXyC8j4rhIdkxfqXCKGj6', 'Charlie Safety', 4, 'Active'),
+(5, 'finance@transitops.com', '$2y$10$7Kgg3hd4Jl.IiBZFdb/LNuYC44necSmAGXyC8j4rhIdkxfqXCKGj6', 'David Finance', 5, 'Active');
 
 -- Seed Settings
 INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
