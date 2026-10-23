@@ -1,5 +1,3 @@
-USE `transitops`;
-
 -- Seed Roles
 INSERT INTO `roles` (`id`, `name`, `permissions`) VALUES
 (1, 'Super Admin', '["all"]'),

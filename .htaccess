@@ -1,13 +1,20 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    
-    # Block direct directory views
+
     Options -Indexes
+
+    # Keep application source and setup files out of public requests.
+    RewriteRule (^|/)\. - [F,L]
+    RewriteRule ^(config|controllers|database|helpers|middleware|models|views)(/|$) - [F,L,NC]
+    RewriteRule ^uploads/.*\.(php[0-9]?|phtml|phar)$ - [F,L,NC]
 
     # Allow accessing existing files or folders directly
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
 
-    # Route everything else to index.php
     RewriteRule ^(.*)$ index.php [L,QSA]
 </IfModule>
+
+<FilesMatch "^(\.env|\.git|composer\.(json|lock)|README\.md)$">
+    Require all denied
+</FilesMatch>

@@ -10,7 +10,11 @@ class FileHelper {
      * @return string|false Path to save in DB, or false on failure
      */
     public static function uploadImage($file, $subfolder = 'general') {
-        if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
+        if (
+            !isset($file['error'], $file['size'], $file['tmp_name'])
+            || $file['error'] !== UPLOAD_ERR_OK
+            || !in_array($subfolder, ['vehicles', 'drivers'], true)
+        ) {
             return false;
         }
 
@@ -23,22 +27,25 @@ class FileHelper {
         // Validate file type
         $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
         $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+        if ($fileInfo === false) {
+            return false;
+        }
         $mimeType = finfo_file($fileInfo, $file['tmp_name']);
-        finfo_close($fileInfo);
 
-        if (!in_array($mimeType, $allowedTypes)) {
+        if (!in_array($mimeType, $allowedTypes, true)) {
             return false;
         }
 
-        // Get extension
-        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        if (empty($ext)) {
-            $ext = ($mimeType === 'image/png') ? 'png' : (($mimeType === 'image/webp') ? 'webp' : 'jpg');
-        }
+        $extensions = [
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/gif' => 'gif',
+            'image/webp' => 'webp',
+        ];
+        $ext = $extensions[$mimeType];
 
-        // Generate unique filename
-        $fileName = uniqid($subfolder . '_', true) . '.' . $ext;
-        $targetPath = UPLOAD_PATH . '/' . $subfolder . '/' . $fileName;
+        $fileName = bin2hex(random_bytes(16)) . '.' . $ext;
+        $targetPath = UPLOAD_PATH . DIRECTORY_SEPARATOR . $subfolder . DIRECTORY_SEPARATOR . $fileName;
 
         // Move file
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {
@@ -55,7 +62,11 @@ class FileHelper {
      * @return string|false Path to save in DB, or false on failure
      */
     public static function uploadDocument($file, $subfolder = 'documents') {
-        if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
+        if (
+            !isset($file['error'], $file['size'], $file['tmp_name'])
+            || $file['error'] !== UPLOAD_ERR_OK
+            || $subfolder !== 'documents'
+        ) {
             return false;
         }
 
@@ -74,19 +85,26 @@ class FileHelper {
             'image/png'
         ];
         $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+        if ($fileInfo === false) {
+            return false;
+        }
         $mimeType = finfo_file($fileInfo, $file['tmp_name']);
-        finfo_close($fileInfo);
 
-        if (!in_array($mimeType, $allowedTypes)) {
+        if (!in_array($mimeType, $allowedTypes, true)) {
             return false;
         }
 
-        // Get extension
-        $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
-        
-        // Generate unique filename
-        $fileName = uniqid('doc_', true) . '.' . $ext;
-        $targetPath = UPLOAD_PATH . '/' . $subfolder . '/' . $fileName;
+        $extensions = [
+            'application/pdf' => 'pdf',
+            'application/msword' => 'doc',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+        ];
+        $ext = $extensions[$mimeType];
+
+        $fileName = bin2hex(random_bytes(16)) . '.' . $ext;
+        $targetPath = UPLOAD_PATH . DIRECTORY_SEPARATOR . $subfolder . DIRECTORY_SEPARATOR . $fileName;
 
         // Move file
         if (move_uploaded_file($file['tmp_name'], $targetPath)) {

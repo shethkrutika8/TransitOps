@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS `transitops` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `transitops`;
-
 -- 1. Roles table
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,

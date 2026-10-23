@@ -3,11 +3,6 @@
 
 define('SECURE_ACCESS', true);
 
-// Start Session
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
 // Autoloader for MVC components
 spl_autoload_register(function ($className) {
     $dirs = [
@@ -113,7 +108,8 @@ if (!method_exists($controllerInstance, $action)) {
 // Execute Action
 try {
     $controllerInstance->$action();
-} catch (Exception $e) {
+} catch (Throwable $e) {
+    error_log('TransitOps request failed: ' . $e->getMessage());
     if (DEV_MODE) {
         die("An application error occurred: " . $e->getMessage() . "<br><pre>" . $e->getTraceAsString() . "</pre>");
     } else {

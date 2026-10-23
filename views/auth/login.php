@@ -173,6 +173,7 @@ if (!defined('SECURE_ACCESS')) exit;
             </button>
         </form>
 
+        <?php if (DEV_MODE): ?>
         <div class="border-top border-secondary pt-3">
             <div class="small text-muted mb-2 text-center">Quick Access Test Accounts:</div>
             <div class="row g-2">
@@ -201,6 +202,7 @@ if (!defined('SECURE_ACCESS')) exit;
                 (Password is: <strong>admin123</strong>)
             </div>
         </div>
+        <?php endif; ?>
     </div>
 
     <!-- Spinner -->
@@ -233,11 +235,12 @@ if (!defined('SECURE_ACCESS')) exit;
             }
         };
 
-        // Fill credentials helper
+        <?php if (DEV_MODE): ?>
         function fillCredentials(email) {
             document.getElementById('email').value = email;
             document.getElementById('password').value = 'admin123';
         }
+        <?php endif; ?>
 
         // Handle Form Submit via AJAX
         document.getElementById('loginForm').addEventListener('submit', function(e) {
