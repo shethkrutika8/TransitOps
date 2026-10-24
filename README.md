@@ -1,6 +1,37 @@
 # TransitOps
 
-TransitOps is a PHP and MySQL fleet operations website.
+TransitOps is a comprehensive fleet operations management system with both PHP backend and Flutter web frontend.
+
+## Architecture
+
+- **Backend**: PHP 8.1+ with MySQL database
+- **Frontend**: Flutter Web Application (in development)
+
+## PHP Backend Requirements
+
+- PHP 8.1 or newer
+- MySQL 5.7+ or MariaDB 10.3+
+- PHP extensions: `pdo`, `pdo_mysql`, `fileinfo`, and `session`
+- Apache with `mod_rewrite` and `.htaccess` enabled
+
+## Flutter Web Frontend
+
+See [README_FLUTTER.md](README_FLUTTER.md) for detailed information about the Flutter web application.
+
+### Quick Start for Flutter Web
+
+```bash
+# Install dependencies
+flutter pub get
+
+# Run in development
+flutter run -d chrome
+
+# Build for production
+flutter build web
+```
+
+## Deploying to cPanel
 
 ## Requirements
 

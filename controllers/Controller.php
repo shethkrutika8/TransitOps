@@ -2,6 +2,47 @@
 // TransitOps Base Controller
 
 abstract class Controller {
+
+    protected function isValidDateInput($value, $includeTime = false) {
+        if (!is_string($value) || $value === '') {
+            return false;
+        }
+
+        $formats = $includeTime
+            ? ['Y-m-d\TH:i', 'Y-m-d H:i', 'Y-m-d H:i:s']
+            : ['Y-m-d'];
+
+        foreach ($formats as $format) {
+            $date = DateTimeImmutable::createFromFormat('!' . $format, $value);
+            $errors = DateTimeImmutable::getLastErrors();
+            if (
+                $date !== false
+                && ($errors === false || ($errors['warning_count'] === 0 && $errors['error_count'] === 0))
+                && $date->format($format) === $value
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected function isValidNumberInput($value, $minimum, $maximum = null, $integer = false) {
+        if (!is_scalar($value) || !is_numeric($value)) {
+            return false;
+        }
+
+        $number = (float) $value;
+        if (!is_finite($number) || $number < $minimum || ($maximum !== null && $number > $maximum)) {
+            return false;
+        }
+
+        return !$integer || filter_var($value, FILTER_VALIDATE_INT) !== false;
+    }
+
+    protected function isAllowedValue($value, array $allowedValues) {
+        return is_string($value) && in_array($value, $allowedValues, true);
+    }
     
     /**
      * Render a view layout
