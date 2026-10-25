@@ -8,20 +8,20 @@ require_once dirname(dirname(__DIR__)) . '/helpers/AuthHelper.php';
         <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle Sidebar">
             <i class="fas fa-bars"></i>
         </button>
-        <h4 class="mb-0 fw-bold d-none d-sm-block text-truncate" style="font-size: 1.25rem;">
-            <?php echo $headerTitle ?? 'Dashboard'; ?>
+        <h1 class="mb-0 fw-bold text-truncate page-shell-title">
+            <?php echo htmlspecialchars($headerTitle ?? 'Dashboard', ENT_QUOTES, 'UTF-8'); ?>
         </h4>
     </div>
     
     <div class="navbar-right">
         <!-- Theme Toggle Button -->
-        <button id="theme-toggle" class="theme-toggle-btn" title="Toggle Theme">
+        <button id="theme-toggle" class="theme-toggle-btn" type="button" title="Toggle Theme" aria-label="Toggle color theme">
             <i class="fas fa-moon"></i>
         </button>
 
         <!-- Notifications Dropdown -->
         <div class="dropdown notification-bell">
-            <button class="theme-toggle-btn position-relative" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="theme-toggle-btn position-relative" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications">
                 <i class="far fa-bell"></i>
                 <span id="notification-badge" class="bell-badge d-none">0</span>
             </button>
@@ -32,14 +32,14 @@ require_once dirname(dirname(__DIR__)) . '/helpers/AuthHelper.php';
 
         <!-- User Dropdown Menu -->
         <div class="dropdown">
-            <div class="user-profile-menu dropdown-toggle" id="userMenuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="user-profile-menu dropdown-toggle" id="userMenuDropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="avatar-wrapper">
                     <?php 
                         $name = AuthHelper::userName() ?? 'User';
                         $initials = strtoupper(substr($name, 0, 1));
-                        echo $initials;
+                        echo htmlspecialchars($initials, ENT_QUOTES, 'UTF-8');
                     ?>
-                </div>
+                </button>
                 <div class="d-none d-md-block text-start">
                     <div class="fw-semibold small" style="line-height: 1.2;"><?php echo htmlspecialchars($name); ?></div>
                     <div class="text-muted text-light" style="font-size: 0.75rem;"><?php echo htmlspecialchars(AuthHelper::userRole()); ?></div>

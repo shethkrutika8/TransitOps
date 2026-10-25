@@ -29,8 +29,17 @@ class AuthController extends Controller {
         $email = $data['email'] ?? '';
         $password = $data['password'] ?? '';
 
-        if (empty($email) || empty($password)) {
-            $this->json(['success' => false, 'error' => 'Please fill in all credentials.']);
+        if (!is_string($email) || !is_string($password) || trim($email) === '' || $password === '') {
+            $this->json(['success' => false, 'error' => 'Please fill in all credentials.'], 422);
+        }
+
+        $email = trim($email);
+        if (strlen($email) > 254 || filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            $this->json(['success' => false, 'error' => 'Enter a valid email address.'], 422);
+        }
+
+        if (strlen($password) > 4096) {
+            $this->json(['success' => false, 'error' => 'The password is too long.'], 422);
         }
 
         try {

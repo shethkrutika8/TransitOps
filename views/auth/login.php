@@ -156,7 +156,7 @@ if (!defined('SECURE_ACCESS')) exit;
                 <label for="email" class="form-label">Email Address</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="name@company.com" required autocomplete="email">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="name@company.com" maxlength="254" required autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false">
                 </div>
             </div>
 
@@ -164,7 +164,7 @@ if (!defined('SECURE_ACCESS')) exit;
                 <label for="password" class="form-label">Password</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" maxlength="4096" required autocomplete="current-password">
                 </div>
             </div>
 
