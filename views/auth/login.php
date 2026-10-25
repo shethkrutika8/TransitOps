@@ -19,29 +19,43 @@ if (!defined('SECURE_ACCESS')) exit;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
     <style>
+        :root {
+            color-scheme: light;
+            --login-ink: #172554;
+            --login-muted: #64748b;
+            --login-primary: #4f46e5;
+            --login-border: #dbe4f0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Outfit', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: var(--login-ink);
+            background:
+                radial-gradient(ellipse at 12% 12%, rgba(191, 219, 254, 0.7), transparent 38%),
+                radial-gradient(ellipse at 88% 85%, rgba(221, 214, 254, 0.65), transparent 36%),
+                linear-gradient(135deg, #f8fbff 0%, #eef4ff 52%, #f7f5ff 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow-x: hidden;
-            padding: 1rem;
+            padding: 2rem 1rem;
         }
 
         .login-card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.9);
             border-radius: 24px;
-            padding: 2.5rem;
+            padding: clamp(1.5rem, 5vw, 2.75rem);
             width: 100%;
             max-width: 440px;
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.3);
+            box-shadow: 0 24px 70px rgba(51, 65, 105, 0.14), 0 4px 14px rgba(51, 65, 105, 0.06);
             animation: cardAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            color: #f3f4f6;
+            color: var(--login-ink);
         }
 
         @keyframes cardAppear {
@@ -50,69 +64,92 @@ if (!defined('SECURE_ACCESS')) exit;
         }
 
         .brand-logo {
-            font-size: 2.2rem;
+            font-size: clamp(1.9rem, 8vw, 2.2rem);
             font-weight: 800;
             letter-spacing: -1px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.75rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
         }
 
         .brand-logo span {
-            background: linear-gradient(135deg, #818cf8 0%, #4f46e5 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
+        .brand-logo i {
+            color: #4f46e5 !important;
+        }
+
+        .login-subtitle {
+            color: var(--login-muted) !important;
+            font-size: 0.95rem !important;
+        }
+
         .form-label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #94a3b8;
+            letter-spacing: 0.02em;
+            color: #475569;
             margin-bottom: 0.5rem;
         }
 
         .input-group-text {
-            background-color: rgba(15, 23, 42, 0.6) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            color: #94a3b8 !important;
+            min-width: 3.2rem;
+            justify-content: center;
+            background-color: #f8faff !important;
+            border: 1px solid var(--login-border) !important;
+            color: #64748b !important;
             border-top-left-radius: 12px !important;
             border-bottom-left-radius: 12px !important;
         }
 
         .form-control {
-            background-color: rgba(15, 23, 42, 0.4) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            color: #ffffff !important;
+            min-height: 3.2rem;
+            background-color: #fff !important;
+            border: 1px solid var(--login-border) !important;
+            color: #172554 !important;
             border-top-right-radius: 12px !important;
             border-bottom-right-radius: 12px !important;
             padding: 0.75rem 1rem !important;
-            transition: all 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+        }
+
+        .form-control::placeholder {
+            color: #94a3b8;
         }
 
         .form-control:focus {
-            border-color: #4f46e5 !important;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25) !important;
+            border-color: #818cf8 !important;
+            background-color: #fff !important;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.13) !important;
+        }
+
+        .form-control:user-invalid {
+            border-color: #ef4444 !important;
         }
 
         .btn-login {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            min-height: 3.15rem;
+            background: linear-gradient(135deg, #5b62eb 0%, #4338ca 100%);
             border: none;
             border-radius: 12px;
             color: white;
             font-weight: 600;
             padding: 0.75rem 1.5rem;
-            transition: all 0.2s;
-            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+            letter-spacing: 0.01em;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            box-shadow: 0 8px 18px rgba(79, 70, 229, 0.22);
         }
 
         .btn-login:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
-            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+            box-shadow: 0 11px 24px rgba(79, 70, 229, 0.28);
+            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            color: #fff;
         }
 
         .btn-login:active {
@@ -120,23 +157,50 @@ if (!defined('SECURE_ACCESS')) exit;
         }
 
         .test-account-badge {
-            background-color: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
+            background-color: #f8faff;
+            border: 1px solid var(--login-border);
+            border-radius: 10px;
             padding: 0.5rem;
             font-size: 0.75rem;
             cursor: pointer;
-            transition: background-color 0.2s;
-            color: #cbd5e1;
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+            color: #475569;
         }
 
         .test-account-badge:hover {
-            background-color: rgba(255, 255, 255, 0.08);
-            color: #ffffff;
+            background-color: #eef2ff;
+            border-color: #a5b4fc;
+            color: #3730a3;
         }
-        
+
+        .test-account-divider {
+            border-color: #e2e8f0 !important;
+        }
+
+        .test-account-hint {
+            color: #64748b !important;
+            opacity: 1 !important;
+        }
+
         #global-spinner {
             z-index: 9999;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        @media (max-width: 420px) {
+            .login-card {
+                border-radius: 18px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
@@ -148,7 +212,7 @@ if (!defined('SECURE_ACCESS')) exit;
                 <i class="fas fa-truck-moving text-primary"></i>
                 <span>TransitOps</span>
             </h1>
-            <p class="text-muted small">Smart Transport Operations Management</p>
+            <p class="login-subtitle small">Smart Transport Operations Management</p>
         </div>
 
         <form id="loginForm" action="<?php echo BASE_URL; ?>/login" method="POST">
@@ -174,8 +238,8 @@ if (!defined('SECURE_ACCESS')) exit;
         </form>
 
         <?php if (DEV_MODE): ?>
-        <div class="border-top border-secondary pt-3">
-            <div class="small text-muted mb-2 text-center">Quick Access Test Accounts:</div>
+        <div class="border-top test-account-divider pt-3">
+            <div class="small text-muted mb-2 text-center">Quick Access Test Accounts</div>
             <div class="row g-2">
                 <div class="col-6">
                     <div class="test-account-badge text-center" onclick="fillCredentials('admin@transitops.com')">
@@ -198,7 +262,7 @@ if (!defined('SECURE_ACCESS')) exit;
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-2 small text-light" style="font-size: 0.7rem; opacity: 0.7;">
+            <div class="text-center mt-2 small test-account-hint" style="font-size: 0.7rem;">
                 (Password is: <strong>admin123</strong>)
             </div>
         </div>
