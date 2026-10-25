@@ -138,7 +138,7 @@ $isManagerOrFinance = AuthHelper::hasPermission('fuel_manage');
                         </div>
                         <div class="col-12">
                             <label for="station" class="form-label required-field">Fuel Station Vendor</label>
-                            <input type="text" class="form-control" id="station" name="station" placeholder="Texaco Star #21" required>
+                            <input type="text" class="form-control" id="station" name="station" maxlength="100" placeholder="Texaco Star #21" required>
                         </div>
                     </div>
                 </div>

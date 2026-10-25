@@ -132,6 +132,21 @@ if (!defined('SECURE_ACCESS')) exit;
             border-color: #ef4444 !important;
         }
 
+        .validation-feedback {
+            margin-top: 0.35rem;
+            color: #b4233f;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .validation-feedback[hidden] {
+            display: none;
+        }
+
+        .form-control.is-invalid {
+            border-color: #ef4444 !important;
+        }
+
         .btn-login {
             min-height: 3.15rem;
             background: linear-gradient(135deg, #ed8b4b 0%, #d94368 100%);

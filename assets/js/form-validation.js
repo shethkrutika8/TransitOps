@@ -20,6 +20,7 @@ const FormValidation = {
         if (field.required && (field.type === 'checkbox' ? !field.checked : field.value.trim() === '')) {
             return this.messages.valueMissing;
         }
+        if (validity.valueMissing) return this.messages.valueMissing;
         if (validity.typeMismatch) {
             return field.type === 'email' ? 'Enter a valid email address.' : this.messages.typeMismatch;
         }
@@ -30,6 +31,12 @@ const FormValidation = {
         if (validity.rangeOverflow) return `Enter a value no greater than ${field.max}.`;
         if (validity.stepMismatch) return this.messages.stepMismatch;
         if (validity.badInput) return this.messages.badInput;
+        if (field.type === 'tel' && field.value) {
+            const digits = field.value.replace(/\D/g, '').length;
+            if (digits < 7 || digits > 15) {
+                return 'Enter a phone number containing 7 to 15 digits.';
+            }
+        }
 
         if (field.type === 'file' && field.files && field.files.length > 0) {
             const file = field.files[0];
@@ -90,6 +97,7 @@ const FormValidation = {
             feedback.className = 'validation-feedback';
             feedback.dataset.validationFor = id;
             feedback.id = `${id}-validation-message`;
+            feedback.setAttribute('aria-live', 'polite');
             const group = field.closest('.input-group');
             const anchor = group || field;
             anchor.insertAdjacentElement('afterend', feedback);

@@ -629,6 +629,22 @@ a:hover {
     border-color: var(--danger) !important;
 }
 
+.validation-feedback {
+    margin-top: 0.35rem;
+    color: #b4233f;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.validation-feedback[hidden] {
+    display: none;
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid {
+    border-color: var(--danger) !important;
+}
+
 .form-control:user-invalid:focus,
 .form-select:user-invalid:focus {
     box-shadow: 0 0 0 0.2rem rgba(239, 68, 68, 0.15) !important;

@@ -33,27 +33,27 @@ $isManager = AuthHelper::hasPermission('settings_manage');
             <div class="col-md-6">
                 <label for="app_name" class="form-label">Application Name</label>
                 <input type="text" class="form-control" id="app_name" name="app_name" 
-                       value="<?php echo htmlspecialchars($settings['app_name'] ?? 'TransitOps'); ?>" 
+                       value="<?php echo htmlspecialchars($settings['app_name'] ?? 'TransitOps'); ?>" maxlength="100" required
                        <?php echo $isManager ? '' : 'readonly'; ?>>
             </div>
             
             <div class="col-md-6">
                 <label for="company_name" class="form-label">Company Name</label>
                 <input type="text" class="form-control" id="company_name" name="company_name" 
-                       value="<?php echo htmlspecialchars($settings['company_name'] ?? ''); ?>" 
+                       value="<?php echo htmlspecialchars($settings['company_name'] ?? ''); ?>" maxlength="150" required
                        <?php echo $isManager ? '' : 'readonly'; ?>>
             </div>
             
             <div class="col-md-6">
                 <label for="currency" class="form-label">Currency Symbol</label>
                 <input type="text" class="form-control" id="currency" name="currency" 
-                       value="<?php echo htmlspecialchars($settings['currency'] ?? '$'); ?>" 
+                       value="<?php echo htmlspecialchars($settings['currency'] ?? '$'); ?>" maxlength="8" required
                        <?php echo $isManager ? '' : 'readonly'; ?>>
             </div>
             
             <div class="col-md-6">
                 <label for="timezone" class="form-label">Timezone</label>
-                <select class="form-select" id="timezone" name="timezone" 
+                <select class="form-select" id="timezone" name="timezone" required
                         <?php echo $isManager ? '' : 'disabled'; ?>>
                     <option value="UTC" <?php echo ($settings['timezone'] ?? '') === 'UTC' ? 'selected' : ''; ?>>UTC</option>
                     <option value="America/New_York" <?php echo ($settings['timezone'] ?? '') === 'America/New_York' ? 'selected' : ''; ?>>America/New_York</option>
@@ -79,7 +79,7 @@ $isManager = AuthHelper::hasPermission('settings_manage');
                 <label for="license_warning_days" class="form-label">License Expiry Warning (Days)</label>
                 <input type="number" class="form-control" id="license_warning_days" name="license_warning_days" 
                        value="<?php echo htmlspecialchars($settings['license_warning_days'] ?? '30'); ?>" min="7" max="365"
-                       <?php echo $isManager ? '' : 'readonly'; ?>>
+                       <?php echo $isManager ? 'required' : 'readonly'; ?>>
                 <div class="form-text">Alert when driver license is expiring within this period</div>
             </div>
             
@@ -87,7 +87,7 @@ $isManager = AuthHelper::hasPermission('settings_manage');
                 <label for="insurance_warning_days" class="form-label">Insurance Expiry Warning (Days)</label>
                 <input type="number" class="form-control" id="insurance_warning_days" name="insurance_warning_days" 
                        value="<?php echo htmlspecialchars($settings['insurance_warning_days'] ?? '30'); ?>" min="7" max="365"
-                       <?php echo $isManager ? '' : 'readonly'; ?>>
+                       <?php echo $isManager ? 'required' : 'readonly'; ?>>
                 <div class="form-text">Alert when vehicle insurance is expiring within this period</div>
             </div>
         </div>

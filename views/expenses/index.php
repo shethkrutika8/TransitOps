@@ -143,7 +143,7 @@ $isManagerOrFinance = AuthHelper::hasPermission('expenses_manage');
                         </div>
                         <div class="col-12">
                             <label for="remarks" class="form-label">Remarks / Description</label>
-                            <textarea class="form-control" id="remarks" name="remarks" rows="2" placeholder="Provide extra invoice references or vendor notes..."></textarea>
+                            <textarea class="form-control" id="remarks" name="remarks" rows="2" maxlength="2000" placeholder="Provide extra invoice references or vendor notes..."></textarea>
                         </div>
                     </div>
                 </div>
