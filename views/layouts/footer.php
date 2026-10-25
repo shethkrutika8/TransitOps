@@ -34,6 +34,7 @@ if (!defined('SECURE_ACCESS')) exit;
     </script>
 
     <!-- Custom Client Application Scripts -->
+    <script src="<?php echo BASE_URL; ?>/assets/js/form-validation.js"></script>
     <script src="<?php echo BASE_URL; ?>/assets/js/app.js"></script>
     <script src="<?php echo BASE_URL; ?>/assets/js/ajax-ops.js"></script>
 </body>

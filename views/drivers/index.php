@@ -187,19 +187,19 @@ $isSafetyOrManager = AuthHelper::hasPermission('drivers_manage');
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="name" class="form-label required-field">Driver Full Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Robert Johnson" required>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Robert Johnson" maxlength="100" required>
                         </div>
                         <div class="col-md-6">
                             <label for="employee_id" class="form-label required-field">Employee ID</label>
-                            <input type="text" class="form-control font-monospace" id="employee_id" name="employee_id" placeholder="EMP-002" required>
+                            <input type="text" class="form-control font-monospace" id="employee_id" name="employee_id" placeholder="EMP-002" maxlength="30" required>
                         </div>
                         <div class="col-md-6">
                             <label for="license_number" class="form-label required-field">License Number</label>
-                            <input type="text" class="form-control" id="license_number" name="license_number" placeholder="DL-1100223" required>
+                            <input type="text" class="form-control" id="license_number" name="license_number" placeholder="DL-1100223" maxlength="50" required>
                         </div>
                         <div class="col-md-3">
                             <label for="license_category" class="form-label required-field">License Category</label>
-                            <input type="text" class="form-control" id="license_category" name="license_category" placeholder="Heavy Commercial" required>
+                            <input type="text" class="form-control" id="license_category" name="license_category" placeholder="Heavy Commercial" maxlength="30" required>
                         </div>
                         <div class="col-md-3">
                             <label for="license_expiry" class="form-label required-field">License Expiry Date</label>
@@ -207,15 +207,15 @@ $isSafetyOrManager = AuthHelper::hasPermission('drivers_manage');
                         </div>
                         <div class="col-md-6">
                             <label for="mobile" class="form-label required-field">Mobile Number</label>
-                            <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="+1-555-0199" required>
+                            <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="+1-555-0199" pattern="[+]?[0-9 ()-]{7,20}" title="Use 7 to 20 digits, spaces, parentheses, or hyphens; an optional plus sign is allowed." maxlength="20" required>
                         </div>
                         <div class="col-md-6">
                             <label for="email" class="form-label required-field">Email Address</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="robert.j@company.com" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="robert.j@company.com" maxlength="100" required>
                         </div>
                         <div class="col-12">
                             <label for="address" class="form-label">Residential Address</label>
-                            <textarea class="form-control" id="address" name="address" rows="2" placeholder="456 Oak Avenue, Houston, TX"></textarea>
+                            <textarea class="form-control" id="address" name="address" rows="2" maxlength="2000" placeholder="456 Oak Avenue, Houston, TX"></textarea>
                         </div>
                         <div class="col-md-4">
                             <label for="safety_score" class="form-label">Safety Score (%)</label>
@@ -240,11 +240,11 @@ $isSafetyOrManager = AuthHelper::hasPermission('drivers_manage');
                         </div>
                         <div class="col-md-4">
                             <label for="photo" class="form-label">Driver Photo</label>
-                            <input class="form-control" type="file" id="photo" name="photo" accept="image/*">
+                            <input class="form-control" type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/gif,image/webp" data-max-bytes="5242880">
                         </div>
                         <div class="col-md-4">
                             <label for="license_doc" class="form-label">License Scan Document</label>
-                            <input class="form-control" type="file" id="license_doc" name="license_doc" accept="image/*,application/pdf">
+                            <input class="form-control" type="file" id="license_doc" name="license_doc" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png" data-max-bytes="10485760">
                         </div>
                     </div>
                 </div>

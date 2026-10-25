@@ -167,11 +167,11 @@ $isDispatcherOrAdmin = AuthHelper::hasPermission('trips_manage');
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="source" class="form-label required-field">Source / Origin Location</label>
-                            <input type="text" class="form-control" id="source" name="source" placeholder="Dallas Warehouse A" required>
+                            <input type="text" class="form-control" id="source" name="source" maxlength="150" placeholder="Dallas Warehouse A" required>
                         </div>
                         <div class="col-md-6">
                             <label for="destination" class="form-label required-field">Destination Location</label>
-                            <input type="text" class="form-control" id="destination" name="destination" placeholder="Houston Fulfillment Center" required>
+                            <input type="text" class="form-control" id="destination" name="destination" maxlength="150" data-different-from="#source" placeholder="Houston Fulfillment Center" required>
                         </div>
                         
                         <div class="col-md-6">
@@ -199,11 +199,11 @@ $isDispatcherOrAdmin = AuthHelper::hasPermission('trips_manage');
 
                         <div class="col-md-4">
                             <label for="cargo_type" class="form-label required-field">Cargo Description</label>
-                            <input type="text" class="form-control" id="cargo_type" name="cargo_type" placeholder="Electronics Parts" required>
+                            <input type="text" class="form-control" id="cargo_type" name="cargo_type" maxlength="100" placeholder="Electronics Parts" required>
                         </div>
                         <div class="col-md-4">
                             <label for="cargo_weight" class="form-label required-field">Cargo Weight (kg)</label>
-                            <input type="number" class="form-control" id="cargo_weight" name="cargo_weight" min="1" placeholder="8500" required>
+                            <input type="number" class="form-control" id="cargo_weight" name="cargo_weight" min="1" step="0.01" data-max-from="#vehicle_id" placeholder="8500" required>
                         </div>
                         <div class="col-md-4">
                             <label for="planned_distance" class="form-label required-field">Route Distance (km)</label>
@@ -216,12 +216,12 @@ $isDispatcherOrAdmin = AuthHelper::hasPermission('trips_manage');
                         </div>
                         <div class="col-md-6">
                             <label for="expected_end_date" class="form-label required-field">Expected Delivery Date / Time</label>
-                            <input type="datetime-local" class="form-control" id="expected_end_date" name="expected_end_date" required>
+                            <input type="datetime-local" class="form-control" id="expected_end_date" name="expected_end_date" data-after="#start_date" required>
                         </div>
                         
                         <div class="col-md-6">
                             <label for="revenue" class="form-label">Estimated Revenue ($)</label>
-                            <input type="number" step="0.01" class="form-control" id="revenue" name="revenue" placeholder="1200" required>
+                            <input type="number" step="0.01" min="0" class="form-control" id="revenue" name="revenue" placeholder="1200" required>
                         </div>
                         <div class="col-md-6">
                             <label for="status" class="form-label" id="statusLabel">Initial Status</label>

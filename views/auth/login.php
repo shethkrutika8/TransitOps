@@ -280,6 +280,7 @@ if (!defined('SECURE_ACCESS')) exit;
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/form-validation.js"></script>
 
     <script>
         const BASE_URL = '<?php echo BASE_URL; ?>';
@@ -307,8 +308,16 @@ if (!defined('SECURE_ACCESS')) exit;
         <?php endif; ?>
 
         // Handle Form Submit via AJAX
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        const loginForm = document.getElementById('loginForm');
+        FormValidation.attach(loginForm);
+        loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            if (!FormValidation.validateForm(this)) return;
+
+            const submitButton = this.querySelector('[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Signing in...';
             LoginOps.showSpinner();
             
             const formData = new FormData(this);
@@ -326,6 +335,8 @@ if (!defined('SECURE_ACCESS')) exit;
                         window.location.href = data.redirect;
                     }, 1000);
                 } else {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
                     Swal.fire({
                         title: 'Authentication Failed',
                         text: data.error || 'Invalid credentials.',
@@ -336,6 +347,8 @@ if (!defined('SECURE_ACCESS')) exit;
             })
             .catch(err => {
                 LoginOps.hideSpinner();
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
                 Swal.fire('Error', 'Unable to connect to server. Please try again.', 'error');
             });
         });

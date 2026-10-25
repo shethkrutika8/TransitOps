@@ -175,19 +175,19 @@ $isManager = AuthHelper::hasPermission('vehicles_manage');
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label for="registration_number" class="form-label required-field">Registration Number</label>
-                            <input type="text" class="form-control font-monospace" id="registration_number" name="registration_number" placeholder="TX-1234-A" required>
+                            <input type="text" class="form-control font-monospace" id="registration_number" name="registration_number" placeholder="TX-1234-A" maxlength="30" required>
                         </div>
                         <div class="col-md-6">
                             <label for="name" class="form-label">Vehicle Nickname / Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Volvo FH16" required>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Volvo FH16" maxlength="100" required>
                         </div>
                         <div class="col-md-4">
                             <label for="manufacturer" class="form-label">Manufacturer</label>
-                            <input type="text" class="form-control" id="manufacturer" name="manufacturer" placeholder="Volvo" required>
+                            <input type="text" class="form-control" id="manufacturer" name="manufacturer" placeholder="Volvo" maxlength="100" required>
                         </div>
                         <div class="col-md-4">
                             <label for="model" class="form-label">Model</label>
-                            <input type="text" class="form-control" id="model" name="model" placeholder="FH16 Globetrotter" required>
+                            <input type="text" class="form-control" id="model" name="model" placeholder="FH16 Globetrotter" maxlength="100" required>
                         </div>
                         <div class="col-md-4">
                             <label for="type" class="form-label">Vehicle Type</label>
@@ -205,7 +205,7 @@ $isManager = AuthHelper::hasPermission('vehicles_manage');
                         </div>
                         <div class="col-md-4">
                             <label for="capacity" class="form-label">Load Capacity (kg)</label>
-                            <input type="number" class="form-control" id="capacity" name="capacity" min="1" placeholder="18000" required>
+                            <input type="number" class="form-control" id="capacity" name="capacity" min="1" step="0.01" placeholder="18000" required>
                         </div>
                         <div class="col-md-4">
                             <label for="odometer" class="form-label">Odometer Reading (km)</label>
@@ -213,11 +213,11 @@ $isManager = AuthHelper::hasPermission('vehicles_manage');
                         </div>
                         <div class="col-md-6">
                             <label for="purchase_cost" class="form-label">Purchase Cost ($)</label>
-                            <input type="number" step="0.01" class="form-control" id="purchase_cost" name="purchase_cost" placeholder="120000" required>
+                            <input type="number" step="0.01" min="0" class="form-control" id="purchase_cost" name="purchase_cost" placeholder="120000" required>
                         </div>
                         <div class="col-md-6">
                             <label for="purchase_date" class="form-label">Purchase Date</label>
-                            <input type="date" class="form-control" id="purchase_date" name="purchase_date" required>
+                            <input type="date" class="form-control" id="purchase_date" name="purchase_date" max="<?php echo date('Y-m-d'); ?>" required>
                         </div>
                         <div class="col-md-6">
                             <label for="insurance_expiry" class="form-label">Insurance Expiry Date</label>
@@ -238,7 +238,7 @@ $isManager = AuthHelper::hasPermission('vehicles_manage');
                         </div>
                         <div class="col-md-6">
                             <label for="image" class="form-label">Vehicle Image Upload</label>
-                            <input class="form-control" type="file" id="image" name="image" accept="image/*">
+                            <input class="form-control" type="file" id="image" name="image" accept="image/jpeg,image/png,image/gif,image/webp" data-max-bytes="5242880">
                             <div class="form-text small text-muted">MIME formats: JPG, PNG, WEBP. Max size: 5MB</div>
                         </div>
                     </div>

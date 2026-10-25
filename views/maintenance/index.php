@@ -149,7 +149,7 @@ $isManagerOrSafety = AuthHelper::hasPermission('maintenance_manage');
                         
                         <div class="col-12">
                             <label for="description" class="form-label required-field">Work Description Details</label>
-                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Explain the specific issues diagnosed, work performed, and parts replaced." required></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="3" maxlength="2000" placeholder="Explain the specific issues diagnosed, work performed, and parts replaced." required></textarea>
                         </div>
 
                         <div class="col-md-4">
@@ -162,16 +162,16 @@ $isManagerOrSafety = AuthHelper::hasPermission('maintenance_manage');
                         </div>
                         <div class="col-md-4">
                             <label for="vendor" class="form-label required-field">Service Shop / Vendor</label>
-                            <input type="text" class="form-control" id="vendor" name="vendor" placeholder="Apex Auto Shop" required>
+                            <input type="text" class="form-control" id="vendor" name="vendor" maxlength="100" placeholder="Apex Auto Shop" required>
                         </div>
 
                         <div class="col-md-6">
                             <label for="next_service_km" class="form-label required-field">Next Service Odometer (km Target)</label>
-                            <input type="number" class="form-control" id="next_service_km" name="next_service_km" placeholder="55000" required>
+                            <input type="number" class="form-control" id="next_service_km" name="next_service_km" min="1" placeholder="55000" required>
                         </div>
                         <div class="col-md-6">
                             <label for="next_service_date" class="form-label required-field">Next Service Date Target</label>
-                            <input type="date" class="form-control" id="next_service_date" name="next_service_date" required>
+                            <input type="date" class="form-control" id="next_service_date" name="next_service_date" data-after="#date" required>
                         </div>
                         
                         <div class="col-md-6">

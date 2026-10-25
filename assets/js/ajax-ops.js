@@ -77,8 +77,14 @@ const AjaxOps = {
 
     // Handle AJAX Form Submissions (supports files automatically)
     submitForm: function(formElement, successCallback, errorCallback) {
+        if (!formElement) {
+            throw new Error('Cannot submit form: form element was not found.');
+        }
+        FormValidation.attach(formElement);
+
         formElement.addEventListener('submit', function(e) {
             e.preventDefault();
+            if (!FormValidation.validateForm(formElement)) return;
             
             // Disable submit buttons to prevent double click
             const submitBtn = formElement.querySelector('[type="submit"]');
@@ -99,12 +105,14 @@ const AjaxOps = {
                 body: formData
             })
             .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errData => {
-                        throw new Error(errData.error || 'Network response error');
-                    });
-                }
-                return response.json();
+                return response.json().catch(() => {
+                    throw new Error('The server returned an invalid response. Please try again.');
+                }).then(data => {
+                    if (!response.ok) {
+                        throw new Error(data.error || 'Please correct the highlighted fields.');
+                    }
+                    return data;
+                });
             })
             .then(data => {
                 AjaxOps.hideSpinner();
