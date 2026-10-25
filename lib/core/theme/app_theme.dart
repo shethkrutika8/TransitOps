@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const Color primaryColor = Color(0xFF4F46E5);
-  static const Color primaryHover = Color(0xFF4338CA);
+  static const Color primaryColor = Color(0xFFD94368);
+  static const Color primaryHover = Color(0xFFBB3156);
+  static const Color accentColor = Color(0xFFED8B4B);
   static const Color successColor = Color(0xFF10B981);
   static const Color warningColor = Color(0xFFF59E0B);
   static const Color dangerColor = Color(0xFFEF4444);
-  static const Color infoColor = Color(0xFF06B6D4);
+  static const Color infoColor = Color(0xFFDF7951);
 
-  static const Color lightBgPrimary = Color(0xFFF8FAFC);
+  static const Color lightBgPrimary = Color(0xFFFFF8F5);
   static const Color lightBgSecondary = Color(0xFFFFFFFF);
-  static const Color lightBgSidebar = Color(0xFF0F172A);
-  static const Color lightTextPrimary = Color(0xFF1E293B);
-  static const Color lightTextSecondary = Color(0xFF64748B);
-  static const Color lightBorderColor = Color(0xFFE2E8F0);
+  static const Color lightBgSidebar = Color(0xFFFFF0E9);
+  static const Color lightTextPrimary = Color(0xFF38232D);
+  static const Color lightTextSecondary = Color(0xFF796873);
+  static const Color lightBorderColor = Color(0xFFF0E1DF);
 
   static const Color darkBgPrimary = Color(0xFF0B0F19);
   static const Color darkBgSecondary = Color(0xFF111827);
@@ -28,7 +29,7 @@ class AppTheme {
     scaffoldBackgroundColor: lightBgPrimary,
     colorScheme: const ColorScheme.light(
       primary: primaryColor,
-      secondary: infoColor,
+      secondary: accentColor,
       error: dangerColor,
       surface: lightBgSecondary,
     ),

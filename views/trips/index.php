@@ -394,7 +394,7 @@ function dispatchTrip(id) {
         input: 'text',
         inputPlaceholder: 'Enter dispatch comments (optional)',
         showCancelButton: true,
-        confirmButtonColor: '#4f46e5',
+        confirmButtonColor: '#d94368',
         confirmButtonText: 'Yes, Dispatch Now!'
     }).then((result) => {
         if (result.isConfirmed) {

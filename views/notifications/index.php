@@ -99,7 +99,7 @@ function markAllRead() {
         text: 'This clears all unread notification badges.',
         icon: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#4f46e5',
+        confirmButtonColor: '#d94368',
         confirmButtonText: 'Yes, Mark All'
     }).then(result => {
         if (result.isConfirmed) {
@@ -139,7 +139,7 @@ function editNotification(id) {
         `,
         showCancelButton: true,
         confirmButtonText: 'Update',
-        confirmButtonColor: '#4f46e5',
+        confirmButtonColor: '#d94368',
         preConfirm: () => {
             return {
                 id: id,

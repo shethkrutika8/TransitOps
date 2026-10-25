@@ -38,7 +38,7 @@ const AjaxOps = {
             text: "This action cannot be undone!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#4f46e5',
+            confirmButtonColor: '#d94368',
             cancelButtonColor: '#ef4444',
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {

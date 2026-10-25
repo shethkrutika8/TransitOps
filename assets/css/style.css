@@ -1,35 +1,36 @@
 /* TransitOps Premium Stylesheet */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --font-primary: 'Outfit', sans-serif;
+    --font-primary: 'DM Sans', sans-serif;
     
     /* Light Mode Variables */
-    --bg-primary: #f8fafc;
+    --bg-primary: #fff8f5;
     --bg-secondary: #ffffff;
-    --bg-sidebar: #0f172a;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --text-light: #94a3b8;
-    --border-color: #e2e8f0;
-    --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-    --card-shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --bg-sidebar: #fff0e9;
+    --text-primary: #38232d;
+    --text-secondary: #796873;
+    --text-light: #a99aa2;
+    --border-color: #f0e1df;
+    --card-shadow: 0 4px 14px -4px rgb(128 65 82 / 0.08), 0 2px 5px -2px rgb(128 65 82 / 0.06);
+    --card-shadow-hover: 0 16px 32px -12px rgb(128 65 82 / 0.18), 0 5px 12px -5px rgb(128 65 82 / 0.1);
     
     /* Brand Accent Colors */
-    --primary: #4f46e5;
-    --primary-hover: #4338ca;
-    --primary-rgb: 79, 70, 229;
+    --primary: #d94368;
+    --primary-hover: #bb3156;
+    --primary-rgb: 217, 67, 104;
+    --accent: #ed8b4b;
+    --accent-soft: #fff0e1;
     --success: #10b981;
     --warning: #f59e0b;
     --danger: #ef4444;
-    --info: #06b6d4;
+    --info: #df7951;
     
-    /* Sidebar Specific (Light Mode keeps dark sidebar for premium contrast) */
-    --sidebar-bg: #0f172a;
-    --sidebar-text: #94a3b8;
-    --sidebar-active-text: #ffffff;
-    --sidebar-active-bg: rgba(255, 255, 255, 0.08);
+    --sidebar-bg: #fff4ed;
+    --sidebar-text: #795f68;
+    --sidebar-active-text: #a12d4f;
+    --sidebar-active-bg: #ffe4e7;
 }
 
 [data-theme="dark"] {
@@ -46,7 +47,7 @@
     --sidebar-bg: #030712;
     --sidebar-text: #9ca3af;
     --sidebar-active-text: #ffffff;
-    --sidebar-active-bg: rgba(79, 70, 229, 0.2);
+    --sidebar-active-bg: rgba(217, 67, 104, 0.2);
 }
 
 * {
@@ -102,13 +103,13 @@ body {
     display: flex;
     align-items: center;
     padding: 0 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .sidebar-logo {
     font-size: 1.5rem;
     font-weight: 800;
-    color: #ffffff;
+    color: var(--text-primary);
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -117,7 +118,7 @@ body {
 }
 
 .sidebar-logo span {
-    background: linear-gradient(135deg, #818cf8, #4f46e5);
+    background: linear-gradient(135deg, var(--accent), var(--primary));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -154,18 +155,18 @@ body {
 
 .menu-link:hover {
     color: var(--sidebar-active-text);
-    background-color: rgba(255, 255, 255, 0.04);
+    background-color: rgba(var(--primary-rgb), 0.07);
 }
 
 .menu-item.active .menu-link {
     color: var(--sidebar-active-text);
     background-color: var(--sidebar-active-bg);
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.1);
 }
 
 .sidebar-footer {
     padding: 1rem 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--border-color);
     font-size: 0.8rem;
     text-align: center;
 }
@@ -313,7 +314,7 @@ textarea:focus-visible {
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    background: linear-gradient(135deg, var(--accent), var(--primary));
     color: #ffffff;
     display: flex;
     align-items: center;
@@ -430,7 +431,7 @@ textarea:focus-visible {
 .timeline-step.active .timeline-dot {
     border-color: var(--primary);
     background-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+    box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.18);
 }
 
 .timeline-step.completed .timeline-dot {
@@ -466,7 +467,53 @@ textarea:focus-visible {
 }
 
 .table-hover tbody tr:hover {
-    background-color: rgba(79, 70, 229, 0.03) !important;
+    background-color: rgba(var(--primary-rgb), 0.035) !important;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary) !important;
+}
+
+.text-info {
+    color: #c86442 !important;
+}
+
+.bg-info {
+    background-color: #df7951 !important;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--primary);
+    --bs-btn-border-color: var(--primary);
+    --bs-btn-hover-bg: var(--primary-hover);
+    --bs-btn-hover-border-color: var(--primary-hover);
+    --bs-btn-active-bg: var(--primary-hover);
+    --bs-btn-active-border-color: var(--primary-hover);
+    --bs-btn-disabled-bg: var(--primary);
+    --bs-btn-disabled-border-color: var(--primary);
+    --bs-btn-focus-shadow-rgb: var(--primary-rgb);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--primary);
+    --bs-btn-border-color: var(--primary);
+    --bs-btn-hover-bg: var(--primary);
+    --bs-btn-hover-border-color: var(--primary);
+    --bs-btn-active-bg: var(--primary-hover);
+    --bs-btn-active-border-color: var(--primary-hover);
+    --bs-btn-focus-shadow-rgb: var(--primary-rgb);
+}
+
+a {
+    color: var(--primary);
+}
+
+a:hover {
+    color: var(--primary-hover);
 }
 
 /* Modals Override for Dark Mode */
@@ -490,7 +537,7 @@ textarea:focus-visible {
 
 .form-control:focus, .form-select:focus {
     border-color: var(--primary) !important;
-    box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.15) !important;
+    box-shadow: 0 0 0 0.25rem rgba(var(--primary-rgb), 0.15) !important;
 }
 
 /* Custom Badges */
@@ -563,7 +610,7 @@ textarea:focus-visible {
 
 .upload-drag-area:hover {
     border-color: var(--primary);
-    background-color: rgba(79, 70, 229, 0.02);
+    background-color: rgba(var(--primary-rgb), 0.035);
 }
 
 /* Animations */
@@ -618,7 +665,7 @@ textarea:focus-visible {
     place-items: center;
     padding: 1.5rem;
     background:
-        radial-gradient(ellipse at top left, rgba(79, 70, 229, 0.14), transparent 45%),
+        radial-gradient(ellipse at top left, rgba(var(--primary-rgb), 0.14), transparent 45%),
         var(--bg-primary);
 }
 

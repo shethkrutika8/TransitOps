@@ -10,7 +10,7 @@ if (!defined('SECURE_ACCESS')) exit;
     <title>Login | TransitOps</title>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Bootstrap 5 CSS -->
@@ -21,10 +21,10 @@ if (!defined('SECURE_ACCESS')) exit;
     <style>
         :root {
             color-scheme: light;
-            --login-ink: #172554;
-            --login-muted: #64748b;
-            --login-primary: #4f46e5;
-            --login-border: #dbe4f0;
+            --login-ink: #38232d;
+            --login-muted: #796873;
+            --login-primary: #d94368;
+            --login-border: #f0dadd;
         }
 
         * {
@@ -32,12 +32,12 @@ if (!defined('SECURE_ACCESS')) exit;
         }
 
         body {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             color: var(--login-ink);
             background:
-                radial-gradient(ellipse at 12% 12%, rgba(191, 219, 254, 0.7), transparent 38%),
-                radial-gradient(ellipse at 88% 85%, rgba(221, 214, 254, 0.65), transparent 36%),
-                linear-gradient(135deg, #f8fbff 0%, #eef4ff 52%, #f7f5ff 100%);
+                radial-gradient(ellipse at 12% 12%, rgba(255, 212, 190, 0.7), transparent 38%),
+                radial-gradient(ellipse at 88% 85%, rgba(255, 207, 220, 0.68), transparent 36%),
+                linear-gradient(135deg, #fffaf5 0%, #fff3ed 52%, #fff3f6 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -53,7 +53,7 @@ if (!defined('SECURE_ACCESS')) exit;
             padding: clamp(1.5rem, 5vw, 2.75rem);
             width: 100%;
             max-width: 440px;
-            box-shadow: 0 24px 70px rgba(51, 65, 105, 0.14), 0 4px 14px rgba(51, 65, 105, 0.06);
+            box-shadow: 0 24px 70px rgba(128, 65, 82, 0.14), 0 4px 14px rgba(128, 65, 82, 0.06);
             animation: cardAppear 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             color: var(--login-ink);
         }
@@ -75,13 +75,13 @@ if (!defined('SECURE_ACCESS')) exit;
         }
 
         .brand-logo span {
-            background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+            background: linear-gradient(135deg, #ed8b4b 0%, #d94368 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .brand-logo i {
-            color: #4f46e5 !important;
+            color: #d94368 !important;
         }
 
         .login-subtitle {
@@ -93,16 +93,16 @@ if (!defined('SECURE_ACCESS')) exit;
             font-size: 0.8rem;
             font-weight: 600;
             letter-spacing: 0.02em;
-            color: #475569;
+            color: #725b64;
             margin-bottom: 0.5rem;
         }
 
         .input-group-text {
             min-width: 3.2rem;
             justify-content: center;
-            background-color: #f8faff !important;
+            background-color: #fff8f5 !important;
             border: 1px solid var(--login-border) !important;
-            color: #64748b !important;
+            color: #796873 !important;
             border-top-left-radius: 12px !important;
             border-bottom-left-radius: 12px !important;
         }
@@ -111,7 +111,7 @@ if (!defined('SECURE_ACCESS')) exit;
             min-height: 3.2rem;
             background-color: #fff !important;
             border: 1px solid var(--login-border) !important;
-            color: #172554 !important;
+            color: #38232d !important;
             border-top-right-radius: 12px !important;
             border-bottom-right-radius: 12px !important;
             padding: 0.75rem 1rem !important;
@@ -119,13 +119,13 @@ if (!defined('SECURE_ACCESS')) exit;
         }
 
         .form-control::placeholder {
-            color: #94a3b8;
+            color: #a99aa2;
         }
 
         .form-control:focus {
-            border-color: #818cf8 !important;
+            border-color: #e77b8e !important;
             background-color: #fff !important;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.13) !important;
+            box-shadow: 0 0 0 4px rgba(217, 67, 104, 0.13) !important;
         }
 
         .form-control:user-invalid {
@@ -134,7 +134,7 @@ if (!defined('SECURE_ACCESS')) exit;
 
         .btn-login {
             min-height: 3.15rem;
-            background: linear-gradient(135deg, #5b62eb 0%, #4338ca 100%);
+            background: linear-gradient(135deg, #ed8b4b 0%, #d94368 100%);
             border: none;
             border-radius: 12px;
             color: white;
@@ -142,13 +142,13 @@ if (!defined('SECURE_ACCESS')) exit;
             padding: 0.75rem 1.5rem;
             letter-spacing: 0.01em;
             transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-            box-shadow: 0 8px 18px rgba(79, 70, 229, 0.22);
+            box-shadow: 0 8px 18px rgba(217, 67, 104, 0.22);
         }
 
         .btn-login:hover {
             transform: translateY(-1px);
-            box-shadow: 0 11px 24px rgba(79, 70, 229, 0.28);
-            background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            box-shadow: 0 11px 24px rgba(217, 67, 104, 0.28);
+            background: linear-gradient(135deg, #dd7540 0%, #bb3156 100%);
             color: #fff;
         }
 
@@ -157,7 +157,7 @@ if (!defined('SECURE_ACCESS')) exit;
         }
 
         .test-account-badge {
-            background-color: #f8faff;
+            background-color: #fffaf7;
             border: 1px solid var(--login-border);
             border-radius: 10px;
             padding: 0.5rem;
@@ -168,9 +168,9 @@ if (!defined('SECURE_ACCESS')) exit;
         }
 
         .test-account-badge:hover {
-            background-color: #eef2ff;
-            border-color: #a5b4fc;
-            color: #3730a3;
+            background-color: #fff0f2;
+            border-color: #f0a5b3;
+            color: #9f294d;
         }
 
         .test-account-divider {
@@ -330,7 +330,7 @@ if (!defined('SECURE_ACCESS')) exit;
                         title: 'Authentication Failed',
                         text: data.error || 'Invalid credentials.',
                         icon: 'error',
-                        confirmButtonColor: '#4f46e5'
+                        confirmButtonColor: '#d94368'
                     });
                 }
             })

@@ -4,18 +4,18 @@
  */
 
 const CHART_COLORS = {
-    primary   : '#4f46e5',
+    primary   : '#d94368',
     success   : '#22c55e',
     warning   : '#f59e0b',
     danger    : '#ef4444',
-    info      : '#06b6d4',
+    info      : '#ed8b4b',
     secondary : '#64748b',
     purple    : '#a855f7',
     pink      : '#ec4899',
 };
 
-Chart.defaults.color = '#94a3b8';
-Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+Chart.defaults.color = '#796873';
+Chart.defaults.borderColor = '#f0e1df';
 Chart.defaults.font.family = "'Inter', 'Outfit', sans-serif";
 Chart.defaults.font.size = 12;
 
@@ -27,7 +27,7 @@ function doughnutOpts(label) {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-            legend: { position: 'bottom', labels: { padding: 12, boxWidth: 14, color: '#94a3b8' } },
+            legend: { position: 'bottom', labels: { padding: 12, boxWidth: 14, color: '#796873' } },
             tooltip: {
                 callbacks: {
                     label: ctx => ` ${ctx.label}: ${ctx.parsed}`
@@ -60,7 +60,7 @@ function initDashboardCharts(data) {
                         CHART_COLORS.secondary
                     ],
                     borderWidth: 3,
-                    borderColor: '#1e1e2e',
+                    borderColor: '#ffffff',
                     hoverOffset: 6
                 }]
             },
@@ -84,7 +84,7 @@ function initDashboardCharts(data) {
                         CHART_COLORS.danger
                     ],
                     borderWidth: 3,
-                    borderColor: '#1e1e2e',
+                    borderColor: '#ffffff',
                     hoverOffset: 6
                 }]
             },
@@ -108,7 +108,7 @@ function initDashboardCharts(data) {
                         CHART_COLORS.danger
                     ],
                     borderWidth: 3,
-                    borderColor: '#1e1e2e',
+                    borderColor: '#ffffff',
                     hoverOffset: 6
                 }]
             },
@@ -148,7 +148,7 @@ function initDashboardCharts(data) {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { color: '#94a3b8', boxWidth: 14 } },
+                    legend: { labels: { color: '#796873', boxWidth: 14 } },
                     tooltip: {
                         callbacks: {
                             label: ctx => ` ${ctx.dataset.label}: ₹${ctx.parsed.y.toLocaleString()}`
@@ -156,11 +156,11 @@ function initDashboardCharts(data) {
                     }
                 },
                 scales: {
-                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { color: '#f0e1df' }, ticks: { color: '#796873' } },
                     y: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        grid: { color: '#f0e1df' },
                         ticks: {
-                            color: '#94a3b8',
+                            color: '#796873',
                             callback: val => '₹' + (val >= 1000 ? (val/1000).toFixed(0) + 'k' : val)
                         },
                         beginAtZero: true
@@ -182,7 +182,7 @@ function initDashboardCharts(data) {
                     label: 'Fleet Utilization (%)',
                     data: data.utilization.rates,
                     fill: true,
-                    backgroundColor: 'rgba(79,70,229,0.15)',
+                    backgroundColor: 'rgba(217,67,104,0.15)',
                     borderColor: CHART_COLORS.primary,
                     tension: 0.4,
                     borderWidth: 3,
@@ -195,7 +195,7 @@ function initDashboardCharts(data) {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { color: '#94a3b8', boxWidth: 14 } },
+                    legend: { labels: { color: '#796873', boxWidth: 14 } },
                     tooltip: {
                         callbacks: {
                             label: ctx => ` Utilization: ${ctx.parsed.y}%`
@@ -203,10 +203,10 @@ function initDashboardCharts(data) {
                     }
                 },
                 scales: {
-                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { color: '#f0e1df' }, ticks: { color: '#796873' } },
                     y: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        ticks: { color: '#94a3b8', callback: val => val + '%' },
+                        grid: { color: '#f0e1df' },
+                        ticks: { color: '#796873', callback: val => val + '%' },
                         beginAtZero: true,
                         max: 100
                     }
